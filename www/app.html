@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YatraAI - Route Optimizer</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+</head>
+<body>
+    <!-- Top Navigation Bar with Search -->
+    <nav class="top-nav">
+        <button class="menu-btn" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="destination-input" placeholder="Where to?">
+            <button class="current-location-btn">
+                <i class="fas fa-location-arrow"></i>
+            </button>
+        </div>
+        
+        <div class="user-avatar" id="user-avatar">
+            <img src="img/default-avatar.png" alt="User">
+        </div>
+    </nav>
+
+    <!-- Map Container -->
+    <div id="map-container"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="explore">
+            <i class="fas fa-compass"></i>
+            <span>Explore</span>
+        </button>
+        <button class="nav-btn" data-page="quickroute">
+            <i class="fas fa-bolt"></i>
+            <span>QuickRoute</span>
+        </button>
+        <button class="nav-btn ride-now-btn" data-page="ridenow">
+            <i class="fas fa-car"></i>
+            <span>RideNow</span>
+        </button>
+        <button class="nav-btn" data-page="subscription">
+            <i class="fas fa-crown"></i>
+            <span>Premium</span>
+        </button>
+    </nav>
+
+    <!-- Side Menu (Hamburger Menu) -->
+    <div class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <img src="img/default-avatar.png" alt="User" class="menu-avatar">
+            <h3 id="menu-username">John Doe</h3>
+            <p id="menu-email">john@example.com</p>
+        </div>
+        
+        <ul class="menu-items">
+            <li><a href="#" data-section="profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#" data-section="history"><i class="fas fa-history"></i> Ride History</a></li>
+            <li><a href="#" data-section="payment"><i class="fas fa-wallet"></i> Payment Methods</a></li>
+            <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="#" data-section="help"><i class="fas fa-question-circle"></i> Help</a></li>
+            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay for side menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Ride Options Panel -->
+    <div class="ride-panel" id="ride-panel">
+        <div class="panel-header">
+            <h3>Choose Your Ride</h3>
+            <button class="close-panel" id="close-panel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="ride-options">
+            <!-- Ride options will be populated by JavaScript -->
+        </div>
+        
+        <div class="payment-section">
+            <h4>Payment Method</h4>
+            <div class="payment-methods">
+                <button class="payment-method active" data-method="card">
+                    <i class="fas fa-credit-card"></i> Card
+                </button>
+                <button class="payment-method" data-method="googlepay">
+                    <i class="fab fa-google-pay"></i> Google Pay
+                </button>
+                <button class="payment-method" data-method="cash">
+                    <i class="fas fa-wallet"></i> Cash
+                </button>
+            </div>
+        </div>
+        
+        <button class="btn-primary confirm-ride">Confirm Ride</button>
+    </div>
+
+    <!-- QuickRoute Panel -->
+    <div class="quickroute-panel" id="quickroute-panel">
+        <div class="panel-header">
+            <h3>QuickRoute Options</h3>
+            <button class="close-panel" id="close-quickroute">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="route-options">
+            <div class="route-option fastest">
+                <i class="fas fa-tachometer-alt"></i>
+                <div>
+                    <h4>Fastest Route</h4>
+                    <p class="route-details">15 min • 5.2 km • 2 traffic lights</p>
+                </div>
+                <button class="select-route">Select</button>
+            </div>
+            
+            <div class="route-option eco">
+                <i class="fas fa-leaf"></i>
+                <div>
+                    <h4>Eco Route</h4>
+                    <p class="route-details">18 min • 5.5 km • Less traffic</p>
+                </div>
+                <button class="select-route">Select</button>
+            </div>
+            
+            <div class="route-option cheapest">
+                <i class="fas fa-rupee-sign"></i>
+                <div>
+                    <h4>Cheapest Route</h4>
+                    <p class="route-details">20 min • 5.0 km • Avoids tolls</p>
+                </div>
+                <button class="select-route">Select</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="panel-header">
+            <button class="back-btn" id="back-from-settings">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h3>Settings</h3>
+        </div>
+        
+        <div class="settings-content">
+            <div class="settings-section">
+                <h4>Account</h4>
+                <div class="setting-item">
+                    <i class="fas fa-user"></i>
+                    <span>Edit Profile</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="setting-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Change Password</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h4>Preferences</h4>
+                <div class="setting-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Map Preferences</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="setting-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notification Settings</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h4>Payment</h4>
+                <div class="setting-item">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment Methods</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="setting-item">
+                    <i class="fas fa-receipt"></i>
+                    <span>Billing History</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h4>About</h4>
+                <div class="setting-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About YatraAI</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="setting-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Privacy Policy</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>

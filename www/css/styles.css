@@ -1,0 +1,698 @@
+/* Base Styles */
+:root {
+    --primary-color: #0F2B4B;
+    --secondary-color: #34A853;
+    --accent-color: #FF6B00;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --medium-gray: #ddd;
+    --dark-gray: #777;
+    --white: #ffffff;
+    --black: #000000;
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--text-color);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* Landing Page Styles */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    padding-top: calc(20px + var(--safe-area-inset-top));
+    padding-bottom: calc(20px + var(--safe-area-inset-bottom));
+    text-align: center;
+}
+
+.logo-container {
+    margin: 2rem 0 3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
+    object-fit: contain;
+}
+
+h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+}
+
+.auth-buttons {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+}
+
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:active {
+    background-color: #0C223A;
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:active {
+    background-color: var(--light-gray);
+    transform: scale(0.98);
+}
+
+.social-auth {
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--medium-gray);
+}
+
+.divider-text {
+    padding: 0 15px;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 1rem;
+}
+
+.social-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.social-btn:active {
+    transform: scale(0.95);
+}
+
+.social-btn.google {
+    background-color: #DB4437;
+}
+
+.social-btn.facebook {
+    background-color: #4267B2;
+}
+
+.social-btn.apple {
+    background-color: var(--black);
+}
+
+.app-screenshot {
+    margin-top: auto;
+    padding: 20px 0;
+}
+
+.app-screenshot img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* iPhone 12 Pro Max Specific Adjustments */
+@media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) {
+    
+    .landing-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    
+    .app-logo {
+        width: 140px;
+        height: 140px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+    
+    .app-screenshot img {
+        max-width: 350px;
+    }
+}
+
+/* General Mobile Responsiveness */
+@media (max-width: 375px) {
+    .app-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .social-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+}
+/* Add these to your existing styles.css */
+
+/* Top Navigation Bar */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    margin-right: 15px;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.search-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: var(--light-gray);
+    border-radius: 25px;
+    padding: 8px 15px;
+}
+
+.search-icon {
+    color: var(--dark-gray);
+    margin-right: 10px;
+}
+
+#destination-input {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+.current-location-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.user-avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-left: 15px;
+    object-fit: cover;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    font-size: 10px;
+    cursor: pointer;
+    padding: 10px;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.nav-btn i {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.nav-btn.active {
+    color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.nav-btn.ride-now-btn {
+    position: relative;
+}
+
+.nav-btn.ride-now-btn::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.nav-btn.ride-now-btn i,
+.nav-btn.ride-now-btn span {
+    color: white;
+}
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 200;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.menu-header {
+    padding: 30px 20px 20px;
+    border-bottom: 1px solid var(--medium-gray);
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid white;
+}
+
+.menu-items {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.menu-items li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.menu-items li a:hover {
+    background-color: var(--light-gray);
+}
+
+.menu-items li a i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 150;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Panels Common Styles */
+.ride-panel,
+.quickroute-panel,
+.settings-panel {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+    padding: 20px;
+    z-index: 120;
+    transition: bottom 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.ride-panel.active,
+.quickroute-panel.active {
+    bottom: 80px;
+}
+
+.settings-panel {
+    top: 100%;
+    bottom: auto;
+    height: calc(100% - 60px);
+    border-radius: 0;
+    transition: top 0.3s ease;
+}
+
+.settings-panel.active {
+    top: 60px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.panel-header h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.close-panel,
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Ride Options */
+.ride-options {
+    margin-bottom: 20px;
+}
+
+.ride-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: var(--light-gray);
+}
+
+.ride-option .option-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.ride-option .option-info i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--primary-color);
+}
+
+.ride-option .option-details h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.ride-option .option-details p {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+}
+
+.select-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* QuickRoute Options */
+.route-options {
+    margin-bottom: 20px;
+}
+
+.route-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: var(--light-gray);
+}
+
+.route-option i {
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.route-option.fastest i {
+    color: #FF6B00;
+}
+
+.route-option.eco i {
+    color: #34A853;
+}
+
+.route-option.cheapest i {
+    color: #0F2B4B;
+}
+
+.route-details {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+    margin-top: 5px;
+}
+
+.select-route {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Settings Panel */
+.settings-content {
+    padding: 10px 0;
+}
+
+.settings-section {
+    margin-bottom: 25px;
+}
+
+.settings-section h4 {
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+}
+
+.setting-item i:first-child {
+    margin-right: 15px;
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.setting-item span {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.setting-item i.fa-chevron-right {
+    color: var(--medium-gray);
+}
+
+/* Payment Methods */
+.payment-methods {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.payment-method {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-method i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.payment-method.active {
+    border-color: var(--primary-color);
+    background-color: rgba(15, 43, 75, 0.1);
+}
+
+.confirm-ride {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Map Container */
+#map-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+    z-index: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 375px) {
+    .side-menu {
+        width: 85%;
+    }
+    
+    .nav-btn span {
+        font-size: 9px;
+    }
+    
+    .nav-btn.ride-now-btn::before {
+        width: 50px;
+        height: 50px;
+        top: -8px;
+    }
+}
